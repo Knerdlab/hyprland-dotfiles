@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+THEME="Mint-Y-Dark-Red"
+ICONS="Mint-Y"
+CURSOR="hacked-aio-righty"
+FONT="Inter 10"
+
+gsettings set org.gnome.desktop.interface gtk-theme "$THEME"
+gsettings set org.gnome.desktop.interface icon-theme "$ICONS"
+gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR"
+gsettings set org.gnome.desktop.interface font-name "$FONT"
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+

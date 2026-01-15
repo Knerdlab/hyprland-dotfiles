@@ -1,0 +1,28 @@
+# ===== Cache / runtime =====
+.cache/
+.local/share/recently-used.xbel
+*.log
+
+# ===== Fontconfig cache =====
+.cache/fontconfig/
+.fontconfig/
+
+# ===== Backups locais =====
+**/bkp/
+**/*bkp*
+
+# ===== State / machine-specific =====
+.config/OpenRGB/
+.config/google-chrome/
+.config/chromium/
+.config/discord/
+.config/Slack/
+.config/spotify/
+
+# ===== Secrets =====
+.ssh/
+.gnupg/
+
+# ===== OS noise =====
+.DS_Store
+Thumbs.db

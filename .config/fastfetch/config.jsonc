@@ -1,0 +1,119 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+  // ─────────────────────────────────────────
+  // LOGO (kitty backend)
+  // ─────────────────────────────────────────
+  "logo": {
+    "type": "kitty",
+    "source": "/home/knerd/.config/fastfetch/images/2B.png",
+    "width": 34,
+    "height": 15,
+    "padding": {
+      "right": 4
+    }
+  },
+
+  // ─────────────────────────────────────────
+  // MÓDULOS
+  // ─────────────────────────────────────────
+  "modules": [
+    {
+      "type": "title",
+      "color": "cyan"
+    },
+
+    /* ───────────── SYSTEM ───────────── */
+    {
+      "type": "custom",
+      "format": "╭────────────────────── SYSTEM ──────────────────────╮",
+      "color": "blue"
+    },
+    {
+      "type": "os",
+      "key": "|=  OS",
+      "keyColor": "blue"
+    },
+    {
+      "type": "kernel",
+      "key": "|=  Kernel",
+      "keyColor": "blue"
+    },
+    {
+      "type": "packages",
+      "key": "|= 󰏗 Packages",
+      "keyColor": "blue"
+    },
+    {
+      "type": "wm",
+      "key": "|=  DE",
+      "keyColor": "blue"
+    },
+    {
+      "type": "shell",
+      "key": "|=  Shell",
+      "keyColor": "blue"
+    },
+    {
+      "type": "terminal",
+      "key": "|=  Terminal",
+      "keyColor": "blue"
+    },
+    {
+      "type": "custom",
+      "format": "╰────────────────────────────────────────────────────╯",
+      "color": "blue"
+    },
+
+    /* ──────────── HARDWARE ──────────── */
+    {
+      "type": "custom",
+      "format": "╭───────────────────── HARDWARE ─────────────────────╮",
+      "color": "magenta"
+    },
+    {
+      "type": "cpu",
+      "key": "|= 󰍛 CPU",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "memory",
+      "key": "|= 󰟖 Memory",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "disk",
+      "key": "|=  Disk (/)",
+      "folders": ["/"],
+      "keyColor": "magenta"
+    },
+    {
+      "type": "disk",
+      "key": "|=  Disk (/home)",
+      "folders": ["/home"],
+      "keyColor": "magenta"
+    },
+    {
+      "type": "gpu",
+      "key": "|=  GPU",
+      "keyColor": "magenta"
+    },
+    {
+      "type": "custom",
+      "format": "╰────────────────────────────────────────────────────╯",
+      "color": "magenta"
+    },
+
+    {
+      "type": "custom",
+      "format": ""
+    },
+
+    {
+      "type": "colors",
+      "symbol": "",
+      "paddingLeft": 2
+    }
+  ]
+}
+

@@ -1,0 +1,24 @@
+(defwindow calendar
+  :monitor 0
+  :geometry (geometry
+    :x "50%"
+    :y "30px"
+    :anchor "top center"
+  )
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  (calendar-box)
+)
+
+(defwidget calendar-box []
+  (box
+    :class "calendar"
+    :orientation "vertical"
+    (calendar
+      :day-names ["seg" "ter" "qua" "qui" "sex" "sáb" "dom"]
+      :week-start "mon"
+    )
+  )
+)
+

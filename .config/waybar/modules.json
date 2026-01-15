@@ -1,0 +1,206 @@
+{
+  // === Hyprland Workspaces ===
+  "hyprland/workspaces": {
+    "on-scroll-up": "hyprctl dispatch workspace r-1",
+    "on-scroll-down": "hyprctl dispatch workspace r+1",
+    "on-click": "activate",
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{id}",
+    "format-icons": {
+      "default": "",
+      "active": "",
+      "urgent": ""
+    }
+  },
+
+
+  // Current window title
+  "hyprland/window": {
+    "separate-outputs": true,
+    "max-length": 50
+  },
+
+  // Arch Rofi launcher
+  "custom/arch-logo": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "rofi -show drun"
+  },
+
+  // Exit / Power menu
+  "custom/exit": {
+    "format": " ",
+    "on-click": "wlogout",
+    "tooltip-format": "Power Menu"
+  },
+
+  // Clock
+  //"clock": {
+  // "format": "  {:%H:%M}",
+  // "format-alt": "  {:%a, %b %d}",
+  // "timezone": "America/Sao_Paulo",
+  //  "on-click": "pkill gnome-calendar || GTK_THEME=Mint-Y-Dark-Red gnome-calendar",
+  //  "tooltip": false
+  //},
+
+"clock": {
+  "format": "  {:%H:%M}",
+  "tooltip": false,
+  "on-click": "eww open --toggle calendar"
+},
+
+
+
+  // CPU
+  "cpu": {
+    "format": "  {usage}%",
+    "tooltip": true
+  },
+
+  // Memory
+  "memory": {
+    "format": "󰍛  {}%",
+    "tooltip": true
+  },
+
+  // Disk
+  "disk": {
+    "interval": 30,
+    "format": "  {percentage_used}%",
+    "on-click": "kitty -e btop",
+    "path": "/"
+  },
+
+  // Group Hardware
+  "group/hardware": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
+    "modules": ["disk", "cpu", "memory"]
+  },
+
+  // Network
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "󰈀  {ifname}",
+    "format-disconnected": "⚠  Disconnected",
+    "tooltip-format-wifi": "  {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%",
+    "tooltip-format-ethernet": "󰈀 {ifname}\nIP: {ipaddr}",
+    "on-click": "nm-connection-editor"
+  },
+
+  // Battery
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+
+  // Audio
+  "pulseaudio": {
+    "format": "{icon}   {volume}%",
+    "format-muted": " Muted",
+    "on-click": "pavucontrol",
+    "format-icons": {
+      "default": ["", "", ""]
+    }
+  },
+  
+  // Tray
+  "tray":{
+      "icon-size": 24,
+      "spacing": 12
+  },
+
+  // Bluetooth
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": "",
+    "format-no-controller": "",
+    "hide-if-disabled": true,
+    "interval": 30,
+    "on-click": "blueman-manager"
+  },
+
+   // Update
+
+"custom/updates": {
+    "format": "{} 󰚰 ",
+    "escape": true,
+    "return-type": "json",
+    "exec": "count=$(checkupdates | wc -l); if [ \"$count\" -gt 0 ]; then    printf '{\"text\":\"%s\",\"tooltip\":\"%s\",\"class\":\"pending\"}\\n' \"$count\" \"$(checkupdates | tr '\\n' '\\r')\"; else printf '{\"text\":\"0\",\"tooltip\":\"Sistema atualizado\",\"class\":\"updated\"}\\n'; fi",
+    "interval": 600,
+    "on-click": "kitty --title 'System Update' sh -c 'sudo pacman -Syu ; echo Presse Enter para fechar; read'",
+    "on-click-right": "kitty --title 'AUR Update' sh -c 'yay -Syu ; echo Pressione Enter para fechar; read'",
+    "signal": 8
+  },
+
+  // ChatGPT
+  "custom/chatgpt": {
+    "format": "󰚩",
+    "tooltip-format": "Gemini",
+    "on-click": "kitty -e gemini"
+  },
+
+  "custom/spotify-button": {
+    "format": "",
+    "on-click": "spotify",
+    "interval": 0,
+    "tooltip": false
+  },
+
+  "custom/spotify-prev": {
+    "exec": "playerctl --player=spotify metadata 2>/dev/null >/dev/null && echo '⏮' || echo ''",
+    "on-click": "playerctl previous",
+    "interval": 5,
+    "tooltip": false
+  },
+
+  "custom/spotify-play": {
+    "exec": "playerctl --player=spotify metadata 2>/dev/null >/dev/null && echo '⏯' || echo ''",
+    "on-click": "playerctl play-pause",
+    "interval": 5,
+    "tooltip": false
+  },
+
+  "custom/spotify-next": {
+    "exec": "playerctl --player=spotify metadata 2>/dev/null >/dev/null && echo '⏭' || echo ''",
+    "on-click": "playerctl next",
+    "interval": 5,
+    "tooltip": false
+  },
+
+  "custom/spotify-title": {
+    "exec": "playerctl metadata --format '{{title}}' 2>/dev/null || echo ''",
+    "format": "{}",
+    "interval": 5,
+    "tooltip": true
+  },
+  
+  // Spotify
+  "group/spotify": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/spotify-button",
+      "custom/spotify-prev",
+      "custom/spotify-play",
+      "custom/spotify-next",
+      "custom/spotify-title"
+    ]
+  }
+}
+

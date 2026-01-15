@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+# ==============================
+# CONFIG
+# ==============================
+CACHE_PACMAN="/var/cache/pacman/pkg"
+USER_CACHE="$HOME/.cache"
+FLATPAK_CACHE="$HOME/.var/app"
+
+# ==============================
+# UI HELPERS
+# ==============================
+BOLD="\033[1m"
+DIM="\033[2m"
+RESET="\033[0m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+RED="\033[31m"
+BLUE="\033[34m"
+
+title() {
+  echo -e "\n${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+  echo -e "${BOLD}${BLUE} $1${RESET}"
+  echo -e "${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}\n"
+}
+
+step() {
+  echo -e "${BOLD}➜${RESET} $1"
+}
+
+ok() {
+  echo -e "  ${GREEN}✔${RESET} $1"
+}
+
+warn() {
+  echo -e "  ${YELLOW}⚠${RESET} $1"
+}
+
+# ==============================
+# START
+# ==============================
+title "LIMPEZA DO ARCH LINUX"
+
+# ------------------------------
+# 1. Cache do pacman
+# ------------------------------
+step "Limpando cache do pacman"
+
+if [[ -d "$CACHE_PACMAN" ]]; then
+  sudo find "$CACHE_PACMAN" -maxdepth 1 -name 'download-*' -delete || true
+  sudo paccache -r
+  ok "Cache do pacman limpo"
+else
+  warn "Diretório do cache do pacman não encontrado"
+fi
+
+# ------------------------------
+# 2. Cache do AUR (yay)
+# ------------------------------
+if command -v yay &>/dev/null; then
+  step "Limpando cache do yay"
+  yay -Sc --noconfirm
+  ok "Cache do yay limpo"
+else
+  warn "yay não instalado — pulando"
+fi
+
+# ------------------------------
+# 3. Dependências órfãs
+# ------------------------------
+step "Verificando dependências órfãs"
+
+orphans="$(pacman -Qtdq || true)"
+
+if [[ -n "$orphans" ]]; then
+  sudo pacman -Rns $orphans --noconfirm
+  ok "Dependências órfãs removidas"
+else
+  ok "Nenhuma dependência órfã encontrada"
+fi
+
+# ------------------------------
+# 4. Cache do usuário
+# ------------------------------
+step "Limpando cache do usuário (~/.cache)"
+
+if [[ -d "$USER_CACHE" ]]; then
+  rm -rf "${USER_CACHE:?}/"*
+  ok "Cache do usuário limpo"
+else
+  warn "~/.cache não encontrado"
+fi
+
+# ------------------------------
+# 5. Flatpak
+# ------------------------------
+if command -v flatpak &>/dev/null; then
+  step "Limpando Flatpaks não utilizados"
+  flatpak uninstall --unused -y
+  ok "Flatpaks órfãos removidos"
+
+  step "Limpando cache do Flatpak"
+  rm -rf "$FLATPAK_CACHE"/*/cache || true
+  ok "Cache do Flatpak limpo"
+else
+  warn "Flatpak não instalado — pulando"
+fi
+
+# ------------------------------
+# 6. Logs do systemd
+# ------------------------------
+step "Limpando logs antigos do systemd (7 dias)"
+sudo journalctl --vacuum-time=7d
+ok "Logs antigos removidos"
+
+# ==============================
+# END
+# ==============================
+title "LIMPEZA CONCLUÍDA COM SUCESSO"
+

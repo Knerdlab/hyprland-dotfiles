@@ -1,0 +1,216 @@
+/* ======================================
+   Waybar – Integrated Dark Wine Theme
+   Minimal color deviation, system-aligned
+   ====================================== */
+
+/* === Color Palette (Aligned) === */
+@define-color fg        #E6E6E6;   /* texto principal */
+@define-color fg-dim    #B8B6B8;   /* texto secundário */
+@define-color bg        rgba(40, 0, 0, 0.7);  /* fundo principal */
+@define-color bg-alt    #161316;   /* fundo elevado */
+@define-color accent    #D63A3A;   /* ação principal */
+@define-color accent-alt #9B2C2C;  /* ação secundária */
+@define-color warning   #b58900;
+@define-color error     #9B2C2C;
+@define-color good      #859900;
+@define-color border    #2A1A1F;
+
+/* === Base === */
+* {
+  font-family:
+    "JetBrainsMono Nerd Font",
+    "Symbols Nerd Font",
+    "Noto Color Emoji",
+    "Roboto",
+    sans-serif;
+  font-size: 18px;
+  border: none;
+}
+
+/* === Waybar Container === */
+window#waybar {
+  border-radius: 24px;
+  background-color: rgba(19, 16, 20, 0.78);
+  transition: background-color 0.3s ease;
+  border: 2px solid #ff0000;
+}
+
+/* === Workspaces === */
+#workspaces button {
+  padding: 0 5px;
+  margin: 2px 4px;
+  color: @fg;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+  background: @accent-alt;
+  color: @fg;
+  padding: 2px 8px;
+  border-radius: 8px;
+}
+
+#workspaces button.urgent {
+  background: @error;
+  color: @fg;
+  animation: blink 0.7s infinite alternate;
+}
+
+@keyframes blink {
+  from { background-color: @error; }
+  to   { background-color: shade(@error, 0.8); }
+}
+
+/* === Window Title === */
+#window {
+  color: @fg-dim;
+  font-style: italic;
+  padding: 0 12px;
+}
+
+/* === Arch Logo (Launcher) === */
+#custom-arch-logo {
+  background-image: url("./arch-icon.svg");
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 5px 0 15px;
+  padding: 12px;
+}
+
+/* === Clock === */
+#clock {
+  font-weight: bold;
+  color: @fg;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+#clock:hover {
+  background: @accent-alt;
+  color: @fg;
+}
+
+/* === System Modules === */
+#cpu,
+#memory,
+#disk {
+  color: @fg-dim;
+  padding: 0 8px;
+  opacity: 0.9;
+}
+
+/* === Spotify Controls === */
+#custom-spotify-prev,
+#custom-spotify-play,
+#custom-spotify-next {
+  padding: 0 6px;
+  color: @fg;
+  font-size: 18px;
+}
+
+/* === Network === */
+#network {
+  padding: 0 5px;
+  color: @fg;
+  font-weight: 600;
+}
+
+/* === Battery === */
+#battery {
+  padding: 0 10px;
+  color: @fg;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @good;
+}
+
+#battery.warning {
+  color: @warning;
+}
+
+#battery.critical {
+  color: @error;
+}
+
+/* === Audio === */
+#pulseaudio {
+  color: @fg;
+  padding: 0 5px;
+}
+
+#pulseaudio.muted {
+  color: @warning;
+}
+
+/* === Bluetooth === */
+#bluetooth {
+  color: @fg;
+  padding: 0 5px;
+}
+
+/* === Exit Button === */
+#custom-exit {
+  color: @error;
+  font-size: 16px;
+  padding: 0 14px 0 5px;
+  transition: color 0.3s ease;
+}
+
+#custom-exit:hover {
+  color: @accent;
+}
+
+/* === Tooltip === */
+tooltip {
+  background-color: @bg-alt;
+  border: 1px solid @border;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+tooltip label {
+  font-family: "JetBrains Mono Nerd Font", monospace;
+  font-size: 16px;
+  color: @fg;
+}
+
+/* === Updates === */
+#custom-updates {
+  padding: 0 10px;
+  color: @fg;
+}
+
+#custom-updates.pending {
+  color: @warning;
+}
+
+#custom-updates.updated {
+  color: @fg-dim;
+}
+
+/* === Spotify Title === */
+#custom-spotify-title {
+  font-weight: bold;
+  font-size: 12px;
+  padding: 2px 6px 0 6px;
+  color: @fg;
+}
+
+/* === ChatGPT === */
+#custom-chatgpt {
+  padding: 0 10px 2px 10px;
+  font-size: 18px;
+  color: @fg;
+}
+
+/* === Spotify Button === */
+#custom-spotify-button {
+  font-size: 18px;
+  padding: 0 10px 0 5px;
+  color: @fg;
+}
+
